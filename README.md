@@ -16,6 +16,11 @@
 
 _Для запуска проекта должен быть установлен npm._
 
+Перед запуском нужно установить все библиотеки из package.json. Для этого мы используем команду:
+```
+npm install
+```
+
 Что бы запустить прогон тестов нужно вызвать команду:
 
 ```
@@ -34,7 +39,7 @@ npx playwright show-report
 Подробнее можно посмотреть здесь https://playwright.dev/docs/test-cli
 
 ```
-npx playwright test --repeat-each=2 --project 'Mobile Chrome'
+npx playwright test --repeat-each=2 --project 'Mobile Chrome' --trace on
 ```
 
 Возможные проекты для тестирования:
