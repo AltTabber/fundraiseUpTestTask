@@ -1,11 +1,11 @@
 import { expect, FrameLocator, Locator, Page } from "@playwright/test";
 import { AbstractPage } from "./abstracts/AbstractPage";
-import { LocatorSearchService } from "./helpers/LocatorSearchService";
+import { LocatorSupportService } from "./helpers/LocatorSearchService";
 
 export class DonationFormPage extends AbstractPage {
   readonly page: Page;
   readonly frameDonationForm: FrameLocator;
-  readonly locatorSearchService: LocatorSearchService;
+  readonly locatorSearchService: LocatorSupportService;
 
   readonly donateButton: Locator;
   readonly donateMonthlyButton: Locator;
@@ -35,7 +35,7 @@ export class DonationFormPage extends AbstractPage {
   constructor(page: Page) {
     super();
     this.page = page;
-    this.locatorSearchService = new LocatorSearchService();
+    this.locatorSearchService = new LocatorSupportService();
     this.frameDonationForm = page.frameLocator('[title="Donation Widget"]');
 
     this.donateButton = this.frameDonationForm.locator(
@@ -163,13 +163,22 @@ export class DonationFormPage extends AbstractPage {
     cvc?: string;
   }) {
     if (cardInfo.cardNumber) {
-      await this.cardNumberInput.fill(cardInfo.cardNumber);
+      await this.locatorSearchService.fillInputWithCheck(
+        this.cardNumberInput,
+        cardInfo.cardNumber
+      );
     }
     if (cardInfo.monthYear) {
-      await this.monthYearInput.fill(cardInfo.monthYear);
+      await this.locatorSearchService.fillInputWithCheck(
+        this.monthYearInput,
+        cardInfo.monthYear
+      );
     }
     if (cardInfo.cvc) {
-      await this.cvcInput.fill(cardInfo.cvc);
+      await this.locatorSearchService.fillInputWithCheck(
+        this.cvcInput,
+        cardInfo.cvc
+      );
     }
   }
 
@@ -192,13 +201,22 @@ export class DonationFormPage extends AbstractPage {
     email?: string;
   }) {
     if (personalInfo.firstName) {
-      await this.firstNameInput.fill(personalInfo.firstName);
+      await this.locatorSearchService.fillInputWithCheck(
+        this.firstNameInput,
+        personalInfo.firstName
+      );
     }
     if (personalInfo.lastName) {
-      await this.lastNameInput.fill(personalInfo.lastName);
+      await this.locatorSearchService.fillInputWithCheck(
+        this.lastNameInput,
+        personalInfo.lastName
+      );
     }
     if (personalInfo.email) {
-      await this.emailInput.fill(personalInfo.email);
+      await this.locatorSearchService.fillInputWithCheck(
+        this.emailInput,
+        personalInfo.email
+      );
     }
   }
 

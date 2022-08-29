@@ -15,8 +15,8 @@ export class CharitySitePage extends AbstractPage {
     );
   }
 
-  async goto() {
-    await this.page.goto("https://data.fundraiseup.com/qa-test-7R58U3/");
+  async goToPage() {
+    await this.page.goto(process.env.CHARITY_SITE_PAGE);
   }
 
   async clickGiveNow() {

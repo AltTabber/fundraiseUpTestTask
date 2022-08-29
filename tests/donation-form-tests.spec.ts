@@ -2,20 +2,15 @@ import { test, expect, chromium } from "@playwright/test";
 import { CharitySitePage } from "../pages/CharitySitePage";
 import { DonationFormPage } from "../pages/DonationFormPage";
 
-test("homepage has Playwright in title and get started link linking to the intro page", async ({
+test("The donation form will throw error if you have incorrect card info", async ({
   page,
 }) => {
   page.on("console", (msg) => {
     console.log(msg);
   });
-  const browser = await chromium.launch({
-    logger: {
-      isEnabled: (name, severity) => name === "browser",
-      log: (name, severity, message, args) => console.log(`${name} ${message}`),
-    },
-  });
+
   const charitySitePage = new CharitySitePage(page);
-  await charitySitePage.goto();
+  await charitySitePage.goToPage();
   await charitySitePage.checkOpened();
   await charitySitePage.clickGiveNow();
 
@@ -31,7 +26,7 @@ test("homepage has Playwright in title and get started link linking to the intro
   await donationFormPage.checkCreditCardForm();
   await donationFormPage.setCreditCardInfo({
     cardNumber: "4242 4242 4242 4242",
-    monthYear: "04/24",
+    monthYear: "04 / 24",
     cvc: "000",
   });
   await donationFormPage.clickContinueButton();
@@ -45,5 +40,4 @@ test("homepage has Playwright in title and get started link linking to the intro
   await donationFormPage.clickDonateButtonInPersonalInformation();
   await donationFormPage.checkCreditCardForm();
   await donationFormPage.checkErrorOnCreditCardStage("Your card was declined.");
-  // await donationFormPage.checkErrorOnCreditCardStage("This could be due to any of several reasons: incorrect security code, insufficient funds, card limit, card disabled, etc.");
 });
